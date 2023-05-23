@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FlagWave
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: -328473816, guid: d730dede2bc472c40970c6fc7e4fbafd, type: 3}
-  - {fileID: -416519523, guid: d730dede2bc472c40970c6fc7e4fbafd, type: 3}
-  - {fileID: 186198011, guid: d730dede2bc472c40970c6fc7e4fbafd, type: 3}
+  - {fileID: -1520992468, guid: d730dede2bc472c40970c6fc7e4fbafd, type: 3}
+  - {fileID: -495303944, guid: d730dede2bc472c40970c6fc7e4fbafd, type: 3}
+  - {fileID: -108246522, guid: d730dede2bc472c40970c6fc7e4fbafd, type: 3}
   m_MinSpeed: 6
   m_MaxSpeed: 6
   m_AnimationStartTime: 0
