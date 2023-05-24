@@ -13,7 +13,7 @@ public class Bat : MonoBehaviour
     [SerializeField] public float detectRange;
     [SerializeField] public float moveSpeed;
     [SerializeField] public float attackRange;
-    [SerializeField] public float runRange;
+    [SerializeField] public float runRange; // 도망칠 타이밍을 선정하기 위한 맴버변수 
 
     [SerializeField] public Vector3 returnPosition;
     [SerializeField] public Transform player;
@@ -25,7 +25,7 @@ public class Bat : MonoBehaviour
         states[(int)STATE.Trace] = new TraceState(this);
         states[(int)STATE.Return] = new ReturnState(this);
         states[(int)STATE.Attack] = new AttackState(this);
-        states[(int)STATE.Runaway] = new RunawayState(this);
+        states[(int)STATE.Runaway] = new RunawayState(this); // 도망가는 녀석
     }
 
     private void Update()
@@ -92,7 +92,7 @@ namespace batstate
         {
             if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.detectRange)
             {
-                owner.ChangeState(STATE.Trace);
+                owner.ChangeState(STATE.Trace); // 1. 애초에 도망갈 범위보다 긴 조건문만 추가해주면 유한상태머신 유지된다. 
             }
         }
     }
@@ -127,7 +127,7 @@ namespace batstate
             {
                 owner.ChangeState(STATE.Return);
             }
-            else if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.attackRange)
+            else if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.attackRange) // 2. 마찬가지로 공격범위 가 도망범위보다 길기에 
             {
                 owner.ChangeState(STATE.Attack);
             }
@@ -207,7 +207,7 @@ namespace batstate
                 owner.ChangeState(STATE.Trace);
             }
 
-            else if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.runRange)
+            else if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.runRange) // 공격하다가 공격범위보다 더 가까워져, 맞을 위기에 놓인다면, 
             {
                 owner.ChangeState(STATE.Runaway);
             }
@@ -224,7 +224,7 @@ namespace batstate
 
         public override void Enter()
         {
-            runDir = (owner.player.position - owner.transform.position).normalized * (-1);
+            runDir = (owner.player.position - owner.transform.position).normalized * (-1); // 도망을 치는데, 도망치는 범위는 해당 상태 발동직후, 따라오는 용사의 반대방향으로 뛴다. 
             Debug.Log("Runaway Enter");
         }
         public override void Exit()
@@ -240,12 +240,12 @@ namespace batstate
 
             owner.transform.Translate(runDir * owner.moveSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.runRange)
+            if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.runRange) // 충분히 도망쳤다면 그 다음범위에 할당되는 상태로 넘어가는것이 맞겠다. 
             {
                 owner.ChangeState(STATE.Attack);
             }
 
-            else if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.detectRange)
+            else if (Vector2.Distance(owner.player.position, owner.transform.position) < owner.detectRange) // 이게 필요할까? 없어도 될듯하다. 
             {
                 owner.ChangeState(STATE.Trace);
             }
