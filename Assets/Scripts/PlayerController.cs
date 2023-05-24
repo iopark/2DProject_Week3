@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
     {
 
         RaycastHit2D groundDetect = Physics2D.Raycast(transform.position, Vector2.down, 1.05f, groundLayer); 
-        Debug.DrawRay(transform.position, Vector2.down, Color.red, 0);
+        //Debug.DrawRay(transform.position, Vector2.down, Color.red, 0);
 
         if (groundDetect.collider != null)
         {
@@ -102,13 +102,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("hasLanded", false);
             Debug.DrawRay(transform.position, Vector2.down, Color.red, 0);
         }
-    }
-
-    private bool WallCheck()
-    {
-        //Vector2 dirFront = new Vector2 (transform.position.x * -0.4f, transform.position.y); //given 마우스는 왼쪽을 바라보며 시작하니) 
-        Debug.DrawRay(transform.position, Vector2.left, Color.green, 0); 
-        return Physics2D.Raycast(transform.position, Vector2.left, 0.8f, groundLayer);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

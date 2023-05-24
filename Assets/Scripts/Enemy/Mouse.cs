@@ -17,7 +17,6 @@ public class Mouse : MonoBehaviour
     [SerializeField] private Transform sightBox;
     [SerializeField] private LayerMask groundMask; 
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,6 +30,7 @@ public class Mouse : MonoBehaviour
     }
     private void Update()
     {
+        //Define activity by the state 
         //Do default activity 
         Move();
         if (!IsGroundExist())
@@ -42,13 +42,11 @@ public class Mouse : MonoBehaviour
             Turn(); 
         }
     }
-
     private void Move()
     {
         // certain behavoir, defined by the state 
         rb.velocity = new Vector2(moveSpeed *moveDir, rb.velocity.y); 
     }
-
     private void Turn()
     {
         transform.Rotate(Vector3.up, 180); // Alternative to the spriterenderer flipX.
@@ -64,7 +62,6 @@ public class Mouse : MonoBehaviour
         //    return;
         //}
     }
-
     private bool IsGroundExist()
     {
         Debug.DrawRay(sightBox.position, Vector2.down, Color.yellow);
